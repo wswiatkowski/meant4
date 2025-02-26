@@ -1,6 +1,9 @@
 import pytest
+import allure
+
 from playwright.sync_api import sync_playwright
 from pytest_bdd import scenarios, given, when, then, parsers
+from allure_commons.types import AttachmentType
 
 
 @pytest.fixture(scope="session")
@@ -17,6 +20,18 @@ def page(browser):
     page = context.new_page()
     yield page
     page.close()
+
+
+@pytest.hookimpl(tryfirst=True)
+def pytest_bdd_after_step(request, feature, scenario, step, step_func, step_func_args):
+    page = request.getfixturevalue('page')
+    page.wait_for_load_state('networkidle')
+    screenshot = page.screenshot()
+    allure.attach(
+        body=screenshot,
+        name=f'screenshot_{step.name}',
+        attachment_type=AttachmentType.PNG
+    )
 
 
 @given('I open shop Main Page')
