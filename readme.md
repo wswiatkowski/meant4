@@ -58,23 +58,16 @@ After installing the dependencies, you need to install the browsers required for
     python -m playwright install
 
 This will download and install the necessary browser binaries (Chromium, Firefox, and WebKit).
-Running Tests
-Execute the Tests
 
 To run the tests, simply use the following Pytest command:
 
     pytest
 
 This will automatically discover and execute all test files in the project.
-Generate Allure Report
 
-Run the tests with the --alluredir flag to store the results in a directory for Allure:
-
-    pytest --alluredir=allure-results
 
 ### 4. Generate the Allure Report:
 
-Install Allure command-line tool if you haven't already. You can download it from Allure Downloads.
 Once Allure is installed, you can generate the report by running:
 
     allure serve ./allure
